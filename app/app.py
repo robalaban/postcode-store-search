@@ -1,5 +1,6 @@
-from flask import Flask
-from parser import load_data, render_template
+import requests
+from flask import Flask, render_template, request
+from parser import load_data
 from helpers import get_static_image
 
 app = Flask(__name__)
@@ -7,11 +8,16 @@ app = Flask(__name__)
 # Load data once
 data = load_data()
 
+@app.route('/')
+def index():
+	return render_template('index.html')
+
 @app.route('/sort')
 def render_alphabetical():
 	sortedData = data
 	sortedData.sort(key=lambda _: _['name'])
 	return render_template('postcodes.html', data=sortedData)
+
 
 @app.route('/maps')
 def extract_postcodes():
@@ -37,6 +43,23 @@ def extract_postcodes():
 			)
 
 	return render_template('maps.html', data=data)
+
+
+@app.route('/search', methods=['POST'])
+def search_nearest_postcode():
+	# Get Postcode
+	postcode = request.form['postcode']
+
+	# Query for outcode
+	r = requests.get('http://postcodes.io/postcodes/%s' % postcode)
+	if r.status_code == 200:
+		result = r.json()['result']
+		outcode = result['outcode']
+	
+	# Use outcode for reverse search and filter out the postcodes
+	# To be implemented ...
+
+	return render_template('index.html', outcode=outcode)
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0')

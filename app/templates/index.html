@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <head>
+        <title>Postcode Finder</title>
+    </head>
+</head>
+
+<body>
+    <h2>Postcode!</h2>
+    <a href="{{ url_for('render_alphabetical') }}">Sort</a>
+    <a href="{{ url_for('extract_postcodes') }}">Maps</a>
+    <br />
+    <h4>Postcode!</h4>
+    <form action="{{ url_for('search_nearest_postcode') }}" method="post">
+        <input type="text" name="postcode">
+        <input type="submit">
+    </form>
+
+    {% if outcode %} Your outcode is: <b>{{ outcode }}</b>, search by this... {% endif %}
+</body>
+
+</html>
