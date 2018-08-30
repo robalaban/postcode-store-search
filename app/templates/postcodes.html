@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Postcode Finder</title>
+</head>
+
+<body>
+    <h2>Postcodes rendered alphabetically</h2>
+
+    <table>
+        {% for postcode in data %}
+        <tr>
+            <th>{{ postcode['name'] }}</th>
+            <th>{{ postcode['postcode'] }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
