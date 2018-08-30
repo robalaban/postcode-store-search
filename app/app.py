@@ -1,5 +1,6 @@
 from flask import Flask
 from parser import load_data, render_template
+from helpers import get_static_image
 
 app = Flask(__name__)
 
