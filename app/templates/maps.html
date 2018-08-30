@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Postcode Finder</title>
+</head>
+
+<body>
+    <h2>Static maps based on Latitude and Longitude</h2>
+    <table>
+        {% for postcode in data %}
+        <tr>
+            <th>{{ postcode['name'] }}</th>
+            <th>{{ postcode['postcode'] }}</th>
+            <th>{{ postcode['longitude'] }}</th>
+            <th>{{ postcode['latitude'] }}</th>
+            <th><img src="{{postcode['static_map']}}" /></th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
